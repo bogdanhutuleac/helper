@@ -3,7 +3,15 @@ import { connect } from "react-redux";
 import { Navigate } from "react-router";
 import styled from "styled-components";
 import { signInAPI } from "../action";
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import {
+  GoogleOAuthProvider,
+  GoogleLogin,
+  googleLogout,
+  useGoogleLogin,
+} from "@react-oauth/google";
+import axios from "axios";
 
 import "./Login.css";
 
@@ -181,6 +189,38 @@ function Login(props) {
     }
   };
 
+  const [user, setUser] = useState([]);
+  const [profile, setProfile] = useState([]);
+
+  const google_login = useGoogleLogin({
+    onSuccess: (codeResponse) => setUser(codeResponse),
+    onError: (error) => console.log("Login Failed:", error),
+  });
+
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          setProfile(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [user]);
+
+  const logOut = () => {
+    googleLogout();
+    setProfile(null);
+  };
+
   return (
     <Container>
       {props.user && <Navigate to="/feed" />}
@@ -334,10 +374,13 @@ function Login(props) {
               </Button>
             </Flex>
           </Flex>
-          <Google onClick={() => props.signIn()}>
-            <img src="/images/google.svg" alt="" />
-            Sign in with Google
-          </Google>
+          <GoogleOAuthProvider clientId="393199535543-054543anql844ijpg1phpbt5ciqm83hm.apps.googleusercontent.com">
+            <Google onClick={() => google_login()}>
+              <img src="/images/google.svg" alt="" />
+              Sign in with Google
+            </Google>
+            {/* <GoogleLogin onSuccess={responseMessage} onError={errorMessage} /> */}
+          </GoogleOAuthProvider>
         </Form>
       </Section>
     </Container>
