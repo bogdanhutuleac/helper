@@ -1,0 +1,19 @@
+.flex {
+    max-width: 20px;
+    display: flex;
+    margin-top: 1%;
+}
+
+a {
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.333;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 15px;
+}
+
+span {
+    width: 20px;
+}
