@@ -44,7 +44,7 @@ export const Login = () => {
         p={12}
         rounded={6}
       >
-        <Heading mb={6}>Login</Heading>
+        {/* <Heading mb={6}>Login</Heading> */}
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormControl isInvalid={errors.email}>
             <Input
