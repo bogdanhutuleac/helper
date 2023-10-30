@@ -196,8 +196,8 @@ function Login(props) {
     onSuccess: (codeResponse) => setUser(codeResponse),
     onError: (error) => console.log("Login Failed:", error),
   });
-  const responseMessage = "Successful";
-  const errorMessage = "Something went wrong";
+  // const responseMessage = "Successful";
+  // const errorMessage = "Something went wrong";
   useEffect(() => {
     if (user) {
       axios
@@ -380,7 +380,7 @@ function Login(props) {
               <img src="/images/google.svg" alt="" />
               Sign in with Google
             </Google>
-            <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
+            {/* <GoogleLogin onSuccess={responseMessage} onError={errorMessage} /> */}
           </GoogleOAuthProvider>
         </Form>
       </Section>
