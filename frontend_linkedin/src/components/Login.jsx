@@ -375,7 +375,7 @@ function Login(props) {
               </Button>
             </Flex>
           </Flex>
-          <GoogleOAuthProvider clientId="393199535543-054543anql844ijpg1phpbt5ciqm83hm.apps.googleusercontent.com">
+          <GoogleOAuthProvider clientId="975215730359-q2bppoft7gs14e4606pe0hmtgb7ecoa3.apps.googleusercontent.com">
             <Google onClick={() => google_login()}>
               <img src="/images/google.svg" alt="" />
               Sign in with Google
